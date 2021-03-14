@@ -1,14 +1,18 @@
+''' Tämä on aikas mahtava.  Minkä tahansa CSV -tiedoston tarkasteluun. Tulossa erilaisia helpotushärpäkkeitä.
+Jos lataat koodit githubista, niin kehitysympäristössä tietty just run
+- streamlit run main.py -
+Terminalista (tai komentoriviltä jos niikseen tulee) '''
+
+
 
 import streamlit as stream
 import pandas as pd
-
-''' Tämä on aikas mahtava.  Minkä tahansa CSV -tiedoston tarkasteluun. Tulossa erilaisia helpotushärpäkkeita.
-Jos lataat koodit githubista, niin kehitysympäritössä tietty just run  
-streamlit run main.py 
-tuosta alta Terminalista (tai komentoriviltä jos niikseen tulee) '''
+''' Streamlit toimii nätisti tässä. Etsi mikä tahansa CSV-tiedosto ja analysoi se helposti.'''
+''':flag-fi: :sunglasses: :dromedary_camel: :paw_prints:'''
 
 stream.title('Tutki mitä vaan CSV -muotoista numerodataa')
 stream.sidebar.subheader('Lataa tarkasteluun')
+
 
 uploaded_file = stream.sidebar.file_uploader("Etsi .csv -tiedosto")
 
@@ -23,7 +27,7 @@ if uploaded_file is not None:
 
 	with row1:
 		stream.subheader('Tässä raakadata')
-		stream.write(df)
+		stream.write(df.style.highlight_max(axis=0))
 
 	with col1:
 		stream.subheader('Valitse sarakkeita')
