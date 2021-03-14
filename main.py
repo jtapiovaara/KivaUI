@@ -1,53 +1,54 @@
 
-import streamlit as st
+import streamlit as stream
 import pandas as pd
 
-''' Tämä on aikas mahtava.  Minkä tahansa CSV -tiedoston tarkasteluun. Just run  
+''' Tämä on aikas mahtava.  Minkä tahansa CSV -tiedoston tarkasteluun. Tulossa erilaisia helpotushärpäkkeita.
+Jos lataat koodit githubista, niin kehitysympäritössä tietty just run  
 streamlit run main.py 
 tuosta alta Terminalista (tai komentoriviltä jos niikseen tulee) '''
 
-st.title('Tutki mitä vaan CSV -muotoista numerodataa')
-st.sidebar.subheader('Lataa tarkasteluun')
+stream.title('Tutki mitä vaan CSV -muotoista numerodataa')
+stream.sidebar.subheader('Lataa tarkasteluun')
 
-uploaded_file = st.sidebar.file_uploader("Etsi .csv -tiedosto")
+uploaded_file = stream.sidebar.file_uploader("Etsi .csv -tiedosto")
 
 if uploaded_file is not None:  
 	df = pd.read_csv(uploaded_file)
-	st.sidebar.info('TIedosto ladattu!')
+	stream.sidebar.info('TIedosto ladattu!')
 
-	row1 = st.beta_container()
-	col1, col2 = st.beta_columns(2)
-	row2 = st.beta_container()
-	row3 = st.beta_container()
+	row1 = stream.beta_container()
+	col1, col2 = stream.beta_columns(2)
+	row2 = stream.beta_container()
+	row3 = stream.beta_container()
 
 	with row1:
-		st.subheader('Tässä raakadata')
-		st.write(df)
+		stream.subheader('Tässä raakadata')
+		stream.write(df)
 
 	with col1:
-		st.subheader('Valitse sarakkeita')
+		stream.subheader('Valitse sarakkeita')
 		columns = list(df.columns)
-		columns_sel = st.multiselect('Valitse/poista sarake', columns, columns)
-		df = df[columns_sel]
-		st.write(df)
+		columns_sel = stream.multiselect('Valitse/poista sarake', columns, columns)
+		dfcol1 = df[columns_sel]
+		stream.write(dfcol1)
 
 	with col2:
-		st.subheader('Valitse rivejä')
-		start, stop = st.slider('Rivejä', 0, len(df), [0, len(df)], 1)
-		df = df.iloc[start:stop]
-		st.write(df)
+		stream.subheader('Valitse rivejä')
+		start, stop = stream.slider('Rivejä', 0, len(df), [0, len(df)], 1)
+		dfcol2 = df.iloc[start:stop]
+		stream.write(dfcol2)
 
 	with row2:
-		st.subheader('Näytä iso kuva')
-		value = st.radio('Muuttuja', columns_sel)
-		df = df[value]
-		st.line_chart(df)
+		stream.subheader('Näytä iso kuva')
+		value = stream.radio('Muuttuja', columns_sel)
+		dfrow2 = df[value]
+		stream.line_chart(dfrow2)
 
 	with row3:
-		st.latex(r''' a + ar + a r^2 + a r^3 + \cdots + a r^{n-1} = 
+		stream.latex(r''' a + ar + a r^2 + a r^3 + \cdots + a r^{n-1} = 
 		\sum_{k=0}^{n-1} ar^k = a \left(\frac{1-r^{n}}{1-r}\right)''')
-		st.text('Tähän myöhemmin Black-Scholes optiolaskuri')
-		st.text(r''' 
+		stream.text('Tähän myöhemmin Black-Scholes optiolaskuri')
+		stream.text(r''' 
 		C = osto-option nykyinen arvo
 		S = option kohde-etuuden eli osakkeen nykyinen hinta
 		N(d) = normaalijakauman kertymäfunktion arvo
